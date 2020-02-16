@@ -8,8 +8,10 @@ On trouve également un fichier python permettant d'intégrer depuis les fichier
 
 * récupérer les entrées bibtex manquantes
 * repérer dans les publications où ça n'a pas été fait la raison de la référence à VML. En particulier, on souhaite avoir confirmation qu'il s'agit d'un financement. Dans ce cas, on indiquera "bourse" dans la colonne "type" du fichier csv.
+* supprimer les références bibliographiques qui ne sont pas présentes dans le fichier csv
 * générer des statistiques d'évolution suivant les années
 * croiser ces informations avec les informations de l'association en terme de soutien aux activités de recherche
+
 
 ## Outils
 
