@@ -1,7 +1,16 @@
+#!/usr/bin/env python3
+# coding: utf8
+
 import time
 import csv
 import glob
 import os
+import bibtexparser
+
+
+class smart_dict(dict):
+    def __missing__(self, key):
+        return ""
 
 prefix = "vml-all"
 suffix = ".csv"
@@ -10,8 +19,11 @@ latest_file = max(list_of_files, key=os.path.getctime)
 
 now = time.strftime('%Y%m%d-%H-%M-%S')
 
+newCols = ["authors"]
+
+
 with open(latest_file, newline='') as csvfile:
-    # lecture du csv
+    # Read csv file
     spamreader = csv.reader(csvfile, delimiter=';', quotechar='"')
     publications = []
     colnames = []
@@ -20,12 +32,22 @@ with open(latest_file, newline='') as csvfile:
         if len(colnames) == 0:
             colnames = row
         else:
-            publications.append({})
+            publications.append(smart_dict())
             for k, v in zip(colnames, row):
                 publications[-1][k] = v
 
+    # add possible missing headers
+    for nc in newCols:
+        if not nc in colnames:
+            colnames.append(nc)
+            modif = True
+
     
-    # sauvegarde du csv
+    # read BibTeX file
+    # TODO
+
+    
+    # save csv file
     if modif:
         filename = prefix + "-" + now + suffix
         print("Écriture de " + filename)
