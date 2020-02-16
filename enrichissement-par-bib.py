@@ -15,7 +15,7 @@ with open(latest_file, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=';', quotechar='"')
     publications = []
     colnames = []
-    modif = True
+    modif = False
     for row in spamreader:
         if len(colnames) == 0:
             colnames = row
@@ -30,7 +30,7 @@ with open(latest_file, newline='') as csvfile:
         filename = prefix + "-" + now + suffix
         print("Écriture de " + filename)
         with open(filename, 'w', newline='') as wcsvfile:
-            spamwriter = csv.writer(wcsvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            spamwriter = csv.writer(wcsvfile, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
             spamwriter.writerow(colnames)
             for p in publications:
                 spamwriter.writerow([ p[h] for h in colnames])
