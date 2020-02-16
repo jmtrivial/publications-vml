@@ -44,7 +44,14 @@ with open(latest_file, newline='') as csvfile:
 
     
     # read BibTeX file
-    # TODO
+    with open('citations-vml.bib') as bibtex_file:
+        bib_database = bibtexparser.bparser.BibTexParser(common_strings=True).parse_file(bibtex_file)
+        
+        for p in publications:
+            bib = [ b for b in bib_database.entries if b['ID'] == p["bibtex"] ]
+            if len(bib) == 1 and "author" in bib[0]:
+                p["authors"] = bib[0]["author"]
+                modif = True
 
     
     # save csv file
