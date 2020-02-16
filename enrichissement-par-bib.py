@@ -53,6 +53,9 @@ with open(latest_file, newline='') as csvfile:
                 p["authors"] = bib[0]["author"]
                 modif = True
 
+    # display some stats
+    print("Total number of entries: " + str(len(publications)))
+    print("Number of entries with author(s): " + str(len([p for p in publications if "authors" in p and p["authors"] != ""])))
     
     # save csv file
     if modif:
