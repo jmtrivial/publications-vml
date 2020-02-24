@@ -6,6 +6,7 @@ import csv
 import glob
 import os
 import bibtexparser
+import sys
 
 
 class smart_dict(dict):
@@ -20,6 +21,8 @@ latest_file = max(list_of_files, key=os.path.getctime)
 now = time.strftime('%Y%m%d-%H-%M-%S')
 
 newCols = ["authors"]
+
+sortedEntries = ["title", "year", "type", "authors", "type", "num_citations", "bibtex", "url", "url_pdf", "url_versions", "excerpt"]
 
 
 with open(latest_file, newline='') as csvfile:
@@ -42,6 +45,10 @@ with open(latest_file, newline='') as csvfile:
             colnames.append(nc)
             modif = True
 
+    # if a filtering is required as parameter
+    if len(sys.argv) > 1 and sys.argv[1] == "--filter":
+        print("Filtering columns")
+        colnames = sortedEntries
     
     # read BibTeX file
     with open('citations-vml.bib') as bibtex_file:
